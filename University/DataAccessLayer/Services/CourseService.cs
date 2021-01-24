@@ -19,7 +19,7 @@ namespace University.Services
             config = _config;
             dataSource = _dataSource;
             var dataSourceName = config.GetValue<string>("DataSource");
-            data = dataSource.GetDataSource(dataSourceName).GetSeedData();
+            data = dataSource.GetDataSource(dataSourceName);
         }
 
 

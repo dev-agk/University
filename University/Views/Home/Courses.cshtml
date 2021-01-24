@@ -1,0 +1,41 @@
+﻿@model IEnumerable<University.PresentationLayer.ViewModels.CourseViewModel>
+
+@{
+    ViewData["Title"] = "Courses";
+}
+
+<h1>Courses</h1>
+
+<p>
+    <a asp-action="AddCourse">Add Course</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CourseName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CourseDetails)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CourseName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CourseDetails)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "UpdateCourse", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "DeleteCourse", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

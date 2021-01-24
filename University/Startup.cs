@@ -8,6 +8,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using University.BusinessLayer.Interfaces;
+using University.BusinessLayer.Services;
+using University.Interfaces;
+using University.PresentationLayer.Interfaces;
+using University.PresentationLayer.Services;
+using University.Services;
 
 namespace University
 {
@@ -24,6 +30,25 @@ namespace University
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            //Registering application db as singelton as we have inApp model as a data-source.
+            services.AddSingleton<IDataInterface, DataAccessService>();
+
+            #region CRUD Services
+                services.AddTransient<IStudentsInterface, StudentService>();
+
+                services.AddTransient<ICoursesInterface, CourseService>();
+
+                services.AddTransient<IStudentCoursesInterface, StudentCoursesService>();
+            #endregion
+
+            //Registering BL Service
+            services.AddTransient<IStudentCoursesBLInterface, StudentCourseBLService>();
+
+
+            //Registering Reporting Service
+            services.AddTransient<IReportInterface, ReportService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,7 +75,7 @@ namespace University
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Report}/{id?}");
             });
         }
     }

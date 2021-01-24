@@ -1,0 +1,34 @@
+﻿@model University.PresentationLayer.ViewModels.SubscribeViewModel
+
+@{
+    ViewData["Title"] = "Subscribe";
+}
+
+<h1>Subscribe to course</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Subscribe">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="studentId" class="control-label">Student</label>
+                <select name="studentId" asp-items="Model.studentSelectList"></select>
+                <span asp-validation-for="studentId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="courseID" class="control-label">Course</label>
+                <select name="courseId" asp-items="Model.courseSelectList"></select>
+                <span asp-validation-for="courseID" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Subscribe" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

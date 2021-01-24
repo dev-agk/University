@@ -14,7 +14,7 @@ namespace University.BusinessLayer.Interfaces
 
         public Students GetStudent(int studentId);
 
-        public Students UpdateStudent(Students student);
+        public Students UpdateStudent(StudentViewModel student);
 
         public Students DeleteStudent(int studentId);
 
@@ -22,13 +22,13 @@ namespace University.BusinessLayer.Interfaces
 
         #region Courses
 
-        public Courses AddCourse(Courses course);
+        public CourseViewModel AddCourse(CourseViewModel course);
 
         public List<Courses> GetAllCourses();
 
         public Courses GetCourse(int courseId);
 
-        public Courses UpdateCourse(Courses course);
+        public Courses UpdateCourse(CourseViewModel course);
 
         public Courses DeleteCourse(int courseId);
 

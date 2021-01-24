@@ -20,12 +20,30 @@ namespace University.BusinessLayer.Services
             studentcourses = _studentCourses;
         }
 
-        public Courses AddCourse(Courses course)
+        public CourseViewModel AddCourse(CourseViewModel course)
         {
-            return courses.CreateCourse(course);
+            var lastCourseId = courses
+                     .GetCourses()
+                     .OrderByDescending(x => x.CourseID)
+                     .FirstOrDefault()
+                     .CourseID;
+
+            Courses c = new Courses
+            {
+                CourseID = course.Id,
+                CourseName = course.CourseName,
+                CourseDetails = course.CourseDetails
+            };
+
+            courses.CreateCourse(c);
+
+            //TO DO: Needs to be changed
+            course.Id = lastCourseId + 1;
+
+            return course;
         }
 
-        public StudentViewModel StudentViewModel(StudentViewModel student)
+        public StudentViewModel AddStudent(StudentViewModel student)
         {
             var laststudentId = students
                                 .GetStudents()
@@ -43,6 +61,9 @@ namespace University.BusinessLayer.Services
             };
 
             students.CreateStudent(std);
+
+            //TO DO: Needs to be changed
+            student.id = laststudentId + 1;
 
             return student;
         }
@@ -92,14 +113,30 @@ namespace University.BusinessLayer.Services
             studentcourses.DeleteStudentFromCourse(studentId, courseId);
         }
 
-        public Courses UpdateCourse(Courses course)
+        public Courses UpdateCourse(CourseViewModel course)
         {
-            return courses.UpdateCourse(course);
+            var c = new Courses()
+            {
+                CourseID = course.Id,
+                CourseName = course.CourseName,
+                CourseDetails = course.CourseDetails,
+            };
+
+            return courses.UpdateCourse(c);
         }
 
-        public Students UpdateStudent(Students student)
+        public Students UpdateStudent(StudentViewModel student)
         {
-            return students.UpdateStudent(student);
+            var std = new Students()
+            {
+                StudentId = student.id,
+                ContactNo = student.Contact,
+                DOB = student.DateOfBirth,
+                FirstName = student.FirstName,
+                LastName = student.LastName
+            };
+
+            return students.UpdateStudent(std);
         }
     }
 }
