@@ -1,13 +1,8 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using University.BusinessLayer.Interfaces;
 using University.BusinessLayer.Services;
 using University.Interfaces;
@@ -35,19 +30,19 @@ namespace University
             services.AddSingleton<IDataInterface, DataAccessService>();
 
             #region CRUD Services
-                services.AddTransient<IStudentsInterface, StudentService>();
+                services.AddSingleton<IStudentsInterface, StudentService>();
 
-                services.AddTransient<ICoursesInterface, CourseService>();
+                services.AddSingleton<ICoursesInterface, CourseService>();
 
-                services.AddTransient<IStudentCoursesInterface, StudentCoursesService>();
+                services.AddSingleton<IStudentCoursesInterface, StudentCoursesService>();
             #endregion
 
             //Registering BL Service
-            services.AddTransient<IStudentCoursesBLInterface, StudentCourseBLService>();
+            services.AddSingleton<IStudentCoursesBLInterface, StudentCourseBLService>();
 
 
             //Registering Reporting Service
-            services.AddTransient<IReportInterface, ReportService>();
+            services.AddSingleton<IReportInterface, ReportService>();
 
         }
 

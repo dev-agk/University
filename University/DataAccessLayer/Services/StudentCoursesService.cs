@@ -27,7 +27,7 @@ namespace University.Services
         {
             StudentCourses studentCourses = new StudentCourses()
             {
-                CourseId = studentId,
+                CourseId = courseId,
                 StudentId = studentId
             };
 
