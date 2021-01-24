@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using University.BusinessLayer.Interfaces;
 using University.Models;
 using University.PresentationLayer.Interfaces;
 using University.PresentationLayer.ViewModels;
@@ -10,6 +11,13 @@ namespace University.PresentationLayer.Services
 {
     public class ReportService : IReportInterface
     {
+        ILoggerInterface logger;
+
+        public ReportService(ILoggerInterface _logger)
+        {
+            logger = _logger;
+        }
+
         public IEnumerable<StudentCourseReportViewModel> ReportStudentCourseRelation(List<Students> studentsList, List<Courses> courseList, List<StudentCourses> relations)
         {
             try
@@ -27,7 +35,8 @@ namespace University.PresentationLayer.Services
             }
             catch (Exception ex)
             {
-                throw ex;
+                logger.Log(ex.Message);
+                return null;
             }
         }
 

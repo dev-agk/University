@@ -1,12 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using University.BusinessLayer.Interfaces;
-using University.Models;
 using University.PresentationLayer.Interfaces;
 using University.PresentationLayer.ViewModels;
 
@@ -14,16 +8,16 @@ namespace University.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILoggerInterface logger;
 
         private readonly IStudentCoursesBLInterface university;
 
         private readonly IReportInterface report;
 
 
-        public HomeController(ILogger<HomeController> logger, IStudentCoursesBLInterface _university, IReportInterface _report)
+        public HomeController(ILoggerInterface _logger, IStudentCoursesBLInterface _university, IReportInterface _report)
         {
-            _logger = logger;
+            logger = _logger;
             university = _university;
             report = _report;
         }
@@ -31,6 +25,8 @@ namespace University.Controllers
         #region Report
         public IActionResult Report()
         {
+            logger.Log("works good");
+
             var studentsList = university.GetAllStudents();
             var courseList = university.GetAllCourses();
             var relations = university.GetAllRelations();

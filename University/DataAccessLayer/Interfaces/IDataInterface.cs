@@ -9,6 +9,6 @@ namespace University.Interfaces
 {
     public interface IDataInterface
     {
-        public ApplicationDataSource GetDataSource(string dataSource);
+        public ApplicationDataSource GetDataSource();
     }
 }

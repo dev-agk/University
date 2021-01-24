@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using University.BusinessLayer.Interfaces;
 using University.Data;
 using University.Interfaces;
 using University.Models;
@@ -11,16 +12,17 @@ namespace University.Services
     public class StudentCoursesService : IStudentCoursesInterface
     {
         IDataInterface dataSource;
+        ILoggerInterface logger;
         ApplicationDataSource data;
         private readonly IConfiguration config;
 
 
-        public StudentCoursesService(IDataInterface _dataSource, IConfiguration _config)
+        public StudentCoursesService(IDataInterface _dataSource, IConfiguration _config, ILoggerInterface _logger)
         {
             config = _config;
             dataSource = _dataSource;
-            var dataSourceName = config.GetValue<string>("DataSource");
-            data = dataSource.GetDataSource(dataSourceName);
+            data = dataSource.GetDataSource();
+            logger = _logger;
         }
 
         public void AddStudentToCourse(int studentId, int courseId)
@@ -38,7 +40,7 @@ namespace University.Services
             catch (Exception ex)
             {
 
-                throw ex;
+                logger.Log(ex.Message);
             }
         }
 
@@ -56,13 +58,13 @@ namespace University.Services
                 }
                 else
                 {
-                    throw new Exception("InvalidRelation");
+                    logger.Log("Invalid Relation");
                 }
             }
             catch (Exception ex)
             {
 
-                throw ex;
+                logger.Log(ex.Message);
             }
         }
 
@@ -84,7 +86,8 @@ namespace University.Services
             }
             catch (Exception ex)
             {
-                throw ex;
+                logger.Log(ex.Message);
+                return null;
             }
         }
     }

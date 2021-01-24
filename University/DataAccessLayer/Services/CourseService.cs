@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using University.BusinessLayer.Interfaces;
 using University.Data;
 using University.Interfaces;
 using University.Models;
@@ -11,15 +12,16 @@ namespace University.Services
     public class CourseService : ICoursesInterface
     {
         IDataInterface dataSource;
+        ILoggerInterface logger;
         ApplicationDataSource data;
         private readonly IConfiguration config;
 
-        public CourseService(IDataInterface _dataSource, IConfiguration _config)
+        public CourseService(IDataInterface _dataSource, IConfiguration _config, ILoggerInterface _logger)
         {
             config = _config;
             dataSource = _dataSource;
-            var dataSourceName = config.GetValue<string>("DataSource");
-            data = dataSource.GetDataSource(dataSourceName);
+            data = dataSource.GetDataSource();
+            logger = _logger;
         }
 
 
@@ -38,7 +40,7 @@ namespace University.Services
             }
             catch (Exception ex)
             {
-                throw ex;
+                logger.Log(ex.Message); ;
             }
 
             return course;
@@ -65,7 +67,8 @@ namespace University.Services
             }
             catch (Exception ex)
             {
-                throw ex;
+                logger.Log(ex.Message);
+                return null;
             }
         }
 
@@ -89,7 +92,8 @@ namespace University.Services
             }
             catch (Exception ex)
             {
-                throw ex;
+                logger.Log(ex.Message);
+                return null;
             }
         }
 
@@ -112,7 +116,8 @@ namespace University.Services
             }
             catch (Exception ex)
             {
-                throw ex;
+                logger.Log(ex.Message);
+                return null;
             }
         }
 
@@ -139,7 +144,8 @@ namespace University.Services
             }
             catch (Exception ex)
             {
-                throw ex;
+                logger.Log(ex.Message);
+                return null;
             }
         }
     }

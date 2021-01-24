@@ -27,14 +27,18 @@ namespace University
             services.AddControllersWithViews();
 
             //Registering application db as singelton as we have inApp model as a data-source.
-            services.AddSingleton<IDataInterface, DataAccessService>();
+            services.AddSingleton<IDataInterface, InApplicationDataAccessService>();
+
+            //Registering logger service
+            services.AddSingleton<ILoggerInterface, LoggerService>();
+
 
             #region CRUD Services
-                services.AddSingleton<IStudentsInterface, StudentService>();
+            services.AddSingleton<IStudentsInterface, StudentService>();
 
-                services.AddSingleton<ICoursesInterface, CourseService>();
+            services.AddSingleton<ICoursesInterface, CourseService>();
 
-                services.AddSingleton<IStudentCoursesInterface, StudentCoursesService>();
+            services.AddSingleton<IStudentCoursesInterface, StudentCoursesService>();
             #endregion
 
             //Registering BL Service
