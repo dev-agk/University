@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using University.BusinessLayer.Interfaces;
 using University.BusinessLayer.Services;
+using University.Data;
 using University.Interfaces;
 using University.PresentationLayer.Interfaces;
 using University.PresentationLayer.Services;
@@ -26,27 +27,26 @@ namespace University
         {
             services.AddControllersWithViews();
 
-            //Registering application db as singelton as we have inApp model as a data-source.
-            services.AddSingleton<IDataInterface, InApplicationDataAccessService>();
+            //Registering application db as singleton as we have inApp model as a data-source.
+            services.AddSingleton<IDataInterface, ApplicationDataSource>();
 
             //Registering logger service
             services.AddSingleton<ILoggerInterface, LoggerService>();
 
-
             #region CRUD Services
-            services.AddSingleton<IStudentsInterface, StudentService>();
+            services.AddTransient<IStudentsInterface, StudentService>();
 
-            services.AddSingleton<ICoursesInterface, CourseService>();
+            services.AddTransient<ICoursesInterface, CourseService>();
 
-            services.AddSingleton<IStudentCoursesInterface, StudentCoursesService>();
+            services.AddTransient<IStudentCoursesInterface, StudentCoursesService>();
             #endregion
 
             //Registering BL Service
-            services.AddSingleton<IStudentCoursesBLInterface, StudentCourseBLService>();
+            services.AddTransient<IStudentCoursesBLInterface, StudentCourseBLService>();
 
 
             //Registering Reporting Service
-            services.AddSingleton<IReportInterface, ReportService>();
+            services.AddTransient<IReportInterface, ReportService>();
 
         }
 

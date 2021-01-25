@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using University.Interfaces;
 using University.Models;
 
 namespace University.Data
 {
-    public class ApplicationDataSource
+    public class ApplicationDataSource:IDataInterface
     {
         public ApplicationDataSource()
         {
@@ -60,6 +61,7 @@ namespace University.Data
                         CourseDetails = "Introduction to HR Management"
                     }
             };
+
             this.studentCourses = new List<StudentCourses>()
             {
                 new StudentCourses()
@@ -86,5 +88,9 @@ namespace University.Data
 
         public List<StudentCourses> studentCourses { get; set; }
 
+        public ApplicationDataSource GetDataSource()
+        {
+            return this;
+        }
     }
 }
